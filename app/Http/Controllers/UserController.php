@@ -15,8 +15,20 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = DB::table('users')->get();
-        dd($users);
+        // $users = DB::table('users')->get();
+        \DB::enableQueryLog();
+        // $users = User::onlyTrashed()->get();
+        // $users = User::withTrashed()->find(2);
+        $users = User::find(2);
+        $users->forceDelete();
+        // $users->restore();
+        // dd(\DB::getQueryLog());
+        // dd($users);
+        // foreach ($users as $user) {
+        //     $user->delete();
+        // }
+        // // $users->delete();
+        dd('success');
         return 'this is list user page';
     }
 
