@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use DB;
+use App\Profile;
 
 class UserController extends Controller
 {
@@ -19,8 +20,8 @@ class UserController extends Controller
         \DB::enableQueryLog();
         // $users = User::onlyTrashed()->get();
         // $users = User::withTrashed()->find(2);
-        $users = User::find(2);
-        $users->forceDelete();
+        // $users = User::find(2);
+        // $users->forceDelete();
         // $users->restore();
         // dd(\DB::getQueryLog());
         // dd($users);
@@ -28,6 +29,13 @@ class UserController extends Controller
         //     $user->delete();
         // }
         // // $users->delete();
+        // $user =User::all();
+        // $user = User::with('profile')->find(3);
+        // $profile = User::find(3)->profile;
+        // $profile = Profile::with('user')->find(1);
+
+        $user = User::with('profiles')->find(9);
+        // dd($user, $user->profiles);
         dd('success');
         return 'this is list user page';
     }
