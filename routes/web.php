@@ -43,3 +43,5 @@ Route::get('/', function () {
 
 // Route::get('/users/{id}/orders', 'UserController@getOrderList');
 Route::resource('users', 'UserController');
+Route::resource('countries', 'CountryController');
+Route::get('/users/{id}/posts', 'UserController@userDetail')->name('users.list-post');

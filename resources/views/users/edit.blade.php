@@ -1,3 +1,6 @@
+@extends('layouts.master')
+@section('title', $title)
+@section('content')
 <h1>Edit user id {{$user['id']}} : {{$user['name']}}</h1>
 @if(Session::has('error'))
 	<p style="color: red;">{{Session::get('error')}}</p>
@@ -13,3 +16,4 @@
 	<input type="text" name="tel" value="{{$profile['tel']}}">
 	<button type="submit">Update</button>
 </form>
+@endsection

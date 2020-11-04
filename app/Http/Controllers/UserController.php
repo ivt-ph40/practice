@@ -50,6 +50,12 @@ class UserController extends Controller
         return view('users.create');
     }
 
+    public function userDetail($id)
+    {
+        $user = User::find($id);
+        return view('users.detail', compact('user'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -79,6 +85,7 @@ class UserController extends Controller
         // $data['birthday'] = implode('-', $request->birthday);
         //C1
         $user = User::create($data);
+        // User::getOrder($id);
         // $user = User::firstOrCreate($data);
         //C2
         // $user = User::insert($data);
@@ -94,10 +101,10 @@ class UserController extends Controller
     public function show($id)
     {
         DB::enableQueryLog();
-        $users = DB::select('select * from users where id = ? ',[$id]);
+        // $users = DB::select('select * from users where id = ? ',[$id]);
 
-            DB::select('select * from users');
-            DB::table('users')->get();
+        //     DB::select('select * from users');
+        //     DB::table('users')->get();
 
     $users = DB::table('users')
         ->join('profiles', function($join){
@@ -159,7 +166,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->orders()->delete();
+        $user->delete();
+        $message ='delete user success';
+        event(new UserDelete($user, $message));
     }
 
     public function getOrderList($userID)
